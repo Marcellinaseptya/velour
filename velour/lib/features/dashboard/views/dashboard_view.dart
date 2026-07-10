@@ -16,6 +16,7 @@ import 'scanner_page.dart';
 import 'history_page_view.dart';
 import 'history_ongoing_view.dart';
 import 'history_completed_view.dart';
+import 'profile_view.dart';
 
 class DashboardView extends GetView<DashboardController> {
   const DashboardView({super.key});
@@ -59,6 +60,8 @@ class DashboardView extends GetView<DashboardController> {
           } else {
             return const HistoryCompletedView();
           }
+        } else if (controller.selectedTab.value == 4) {
+          return const ProfileView();
         }
         return Center(child: Text('Tab ${controller.selectedTab.value}'));
       }),

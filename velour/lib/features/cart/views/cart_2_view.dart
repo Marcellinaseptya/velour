@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 import '../controllers/cart_controller.dart';
+import '../../../routes/app_pages.dart';
 
 class Cart2View extends GetView<CartController> {
   const Cart2View({super.key});
@@ -283,20 +284,23 @@ class Cart2View extends GetView<CartController> {
             // Checkout Button
             Padding(
               padding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
-              child: Container(
-                width: double.infinity,
-                height: 56,
-                decoration: BoxDecoration(
-                  color: primaryColor,
-                  borderRadius: BorderRadius.circular(28),
-                ),
-                alignment: Alignment.center,
-                child: Text(
-                  'Checkout',
-                  style: GoogleFonts.inter(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
+              child: GestureDetector(
+                onTap: () => Get.toNamed(Routes.ORDER),
+                child: Container(
+                  width: double.infinity,
+                  height: 56,
+                  decoration: BoxDecoration(
+                    color: primaryColor,
+                    borderRadius: BorderRadius.circular(28),
+                  ),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Checkout',
+                    style: GoogleFonts.inter(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 import '../controllers/cart_4_controller.dart';
+import '../../../routes/app_pages.dart';
 
 class Cart4View extends GetView<Cart4Controller> {
   const Cart4View({super.key});
@@ -282,20 +283,23 @@ class Cart4View extends GetView<Cart4Controller> {
             // Proceed to Payment Button
             Padding(
               padding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
-              child: Container(
-                width: double.infinity,
-                height: 56,
-                decoration: BoxDecoration(
-                  color: primaryColor,
-                  borderRadius: BorderRadius.circular(28),
-                ),
-                alignment: Alignment.center,
-                child: Text(
-                  'Proceed to Payment',
-                  style: GoogleFonts.inter(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
+              child: GestureDetector(
+                onTap: () => Get.toNamed(Routes.ORDER),
+                child: Container(
+                  width: double.infinity,
+                  height: 56,
+                  decoration: BoxDecoration(
+                    color: primaryColor,
+                    borderRadius: BorderRadius.circular(28),
+                  ),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Proceed to Payment',
+                    style: GoogleFonts.inter(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),

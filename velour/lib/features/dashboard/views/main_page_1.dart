@@ -52,7 +52,7 @@ class MainPage1 extends StatelessWidget {
                     ),
                     child: IconButton(
                       icon: const Icon(Icons.mail_outline, color: Colors.black87, size: 20),
-                      onPressed: () {},
+                      onPressed: () => Get.toNamed(Routes.NOTIFICATION),
                     ),
                   )
                 ],

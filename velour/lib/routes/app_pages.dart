@@ -37,6 +37,12 @@ import '../features/register/controllers/register_controller.dart';
 import '../features/register/views/register_view.dart';
 import '../features/success/controllers/success_controller.dart';
 import '../features/success/views/success_view.dart';
+import '../features/cart/views/order_view.dart';
+import '../features/cart/views/payment_method_view.dart';
+import '../features/success/views/order_confirmed_view.dart';
+import '../features/dashboard/views/notification_view.dart';
+import '../features/dashboard/views/profile_view.dart';
+import '../features/dashboard/views/rewards_view.dart';
 
 part 'app_routes.dart';
 
@@ -255,6 +261,39 @@ class AppPages {
     GetPage(
       name: Routes.VOUCHER,
       page: () => const VoucherView(),
+    ),
+    GetPage(
+      name: Routes.ORDER,
+      page: () => const OrderView(),
+    ),
+    GetPage(
+      name: Routes.PAYMENT_METHOD,
+      page: () => const PaymentMethodView(),
+    ),
+    GetPage(
+      name: Routes.ORDER_CONFIRMED,
+      page: () => const OrderConfirmedView(),
+    ),
+    GetPage(
+      name: Routes.NOTIFICATION,
+      page: () => const NotificationView(),
+      binding: BindingsBuilder(() {
+        Get.put(DashboardController());
+      }),
+    ),
+    GetPage(
+      name: Routes.PROFILE,
+      page: () => const ProfileView(),
+      binding: BindingsBuilder(() {
+        Get.put(DashboardController());
+      }),
+    ),
+    GetPage(
+      name: Routes.REWARDS,
+      page: () => const RewardsView(),
+      binding: BindingsBuilder(() {
+        Get.put(DashboardController());
+      }),
     ),
   ];
 }

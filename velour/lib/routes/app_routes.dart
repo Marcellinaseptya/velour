@@ -37,4 +37,10 @@ abstract class Routes {
   static const CART_3 = '/cart-3';
   static const CART_4 = '/cart-4';
   static const VOUCHER = '/voucher';
+  static const ORDER = '/order';
+  static const PAYMENT_METHOD = '/payment-method';
+  static const ORDER_CONFIRMED = '/order-confirmed';
+  static const NOTIFICATION = '/notification';
+  static const PROFILE = '/profile';
+  static const REWARDS = '/rewards';
 }
