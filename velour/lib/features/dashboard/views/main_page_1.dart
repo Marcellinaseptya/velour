@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../controllers/dashboard_controller.dart';
 import 'categories_page_1.dart';
 import 'filter_page_view.dart';
+import '../../../routes/app_pages.dart';
 
 class MainPage1 extends StatelessWidget {
   const MainPage1({super.key});
@@ -51,7 +52,7 @@ class MainPage1 extends StatelessWidget {
                     ),
                     child: IconButton(
                       icon: const Icon(Icons.mail_outline, color: Colors.black87, size: 20),
-                      onPressed: () {},
+                      onPressed: () => Get.toNamed(Routes.NOTIFICATION),
                     ),
                   )
                 ],

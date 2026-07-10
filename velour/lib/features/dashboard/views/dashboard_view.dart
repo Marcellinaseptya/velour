@@ -13,6 +13,8 @@ import 'categories_page_3.dart';
 import 'categories_page_4.dart';
 import 'categories_page_7.dart';
 import 'scanner_page.dart';
+import 'history_page_view.dart';
+import 'profile_view.dart';
 
 class DashboardView extends GetView<DashboardController> {
   const DashboardView({super.key});
@@ -48,6 +50,10 @@ class DashboardView extends GetView<DashboardController> {
           return const FavoritePage();
         } else if (controller.selectedTab.value == 2) {
           return const ScannerPage();
+        } else if (controller.selectedTab.value == 3) {
+          return const HistoryPageView();
+        } else if (controller.selectedTab.value == 4) {
+          return const ProfileView();
         }
         return Center(child: Text('Tab ${controller.selectedTab.value}'));
       }),
