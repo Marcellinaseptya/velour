@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
+import '../controllers/filter_controller.dart';
 
 class FilterPageView extends StatelessWidget {
   const FilterPageView({super.key});
@@ -8,6 +9,7 @@ class FilterPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const primaryColor = Color(0xFFFE660C);
+    final controller = Get.put(FilterController());
 
     return Container(
       decoration: const BoxDecoration(
@@ -77,18 +79,18 @@ class FilterPageView extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 16),
-                          Wrap(
+                          Obx(() => Wrap(
                             spacing: 12,
                             runSpacing: 12,
                             children: [
-                              _buildPill('T-shirt', true, primaryColor),
-                              _buildPill('Crop Top', false, primaryColor),
-                              _buildPill('Outerwear', false, primaryColor),
-                              _buildPill('Hoodie & Sweatshirt', false, primaryColor),
-                              _buildPill('Cardigans', false, primaryColor),
-                              _buildPill('Knitwear', false, primaryColor),
+                              _buildPill('T-shirt', primaryColor, controller.selectedCategories, controller.toggleCategory),
+                              _buildPill('Crop Top', primaryColor, controller.selectedCategories, controller.toggleCategory),
+                              _buildPill('Outerwear', primaryColor, controller.selectedCategories, controller.toggleCategory),
+                              _buildPill('Hoodie & Sweatshirt', primaryColor, controller.selectedCategories, controller.toggleCategory),
+                              _buildPill('Cardigans', primaryColor, controller.selectedCategories, controller.toggleCategory),
+                              _buildPill('Knitwear', primaryColor, controller.selectedCategories, controller.toggleCategory),
                             ],
-                          ),
+                          )),
                           
                           const SizedBox(height: 32),
                           
@@ -102,20 +104,20 @@ class FilterPageView extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 16),
-                          Wrap(
+                          Obx(() => Wrap(
                             spacing: 12,
                             runSpacing: 12,
                             children: [
-                              _buildPill('Minimalist', true, primaryColor),
-                              _buildPill('Elegant', false, primaryColor),
-                              _buildPill('Casual', false, primaryColor),
-                              _buildPill('Y2K', false, primaryColor),
-                              _buildPill('Office Wear', false, primaryColor),
-                              _buildPill('Vintage', false, primaryColor),
-                              _buildPill('Sporty', false, primaryColor),
-                              _buildPill('Streetwear', false, primaryColor),
+                              _buildPill('Minimalist', primaryColor, controller.selectedStyles, controller.toggleStyle),
+                              _buildPill('Elegant', primaryColor, controller.selectedStyles, controller.toggleStyle),
+                              _buildPill('Casual', primaryColor, controller.selectedStyles, controller.toggleStyle),
+                              _buildPill('Y2K', primaryColor, controller.selectedStyles, controller.toggleStyle),
+                              _buildPill('Office Wear', primaryColor, controller.selectedStyles, controller.toggleStyle),
+                              _buildPill('Vintage', primaryColor, controller.selectedStyles, controller.toggleStyle),
+                              _buildPill('Sporty', primaryColor, controller.selectedStyles, controller.toggleStyle),
+                              _buildPill('Streetwear', primaryColor, controller.selectedStyles, controller.toggleStyle),
                             ],
-                          ),
+                          )),
                           
                           const SizedBox(height: 32),
                           
@@ -129,19 +131,19 @@ class FilterPageView extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 16),
-                          Wrap(
+                          Obx(() => Wrap(
                             spacing: 12,
                             runSpacing: 12,
                             children: [
-                              _buildPill('XS', false, primaryColor),
-                              _buildPill('S', false, primaryColor),
-                              _buildPill('M', false, primaryColor),
-                              _buildPill('L', false, primaryColor),
-                              _buildPill('XL', false, primaryColor),
-                              _buildPill('XXL', false, primaryColor),
-                              _buildPill('Plus Size', false, primaryColor),
+                              _buildPill('XS', primaryColor, controller.selectedSizes, controller.toggleSize),
+                              _buildPill('S', primaryColor, controller.selectedSizes, controller.toggleSize),
+                              _buildPill('M', primaryColor, controller.selectedSizes, controller.toggleSize),
+                              _buildPill('L', primaryColor, controller.selectedSizes, controller.toggleSize),
+                              _buildPill('XL', primaryColor, controller.selectedSizes, controller.toggleSize),
+                              _buildPill('XXL', primaryColor, controller.selectedSizes, controller.toggleSize),
+                              _buildPill('Plus Size', primaryColor, controller.selectedSizes, controller.toggleSize),
                             ],
-                          ),
+                          )),
                           
                           const SizedBox(height: 32),
                         ],
@@ -165,38 +167,44 @@ class FilterPageView extends StatelessWidget {
                     child: Row(
                       children: [
                         Expanded(
-                          child: Container(
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: Colors.grey[100],
-                              borderRadius: BorderRadius.circular(25),
-                            ),
-                            alignment: Alignment.center,
-                            child: Text(
-                              'Clear All',
-                              style: GoogleFonts.inter(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.grey[600],
+                          child: GestureDetector(
+                            onTap: () => controller.clearAll(),
+                            child: Container(
+                              height: 50,
+                              decoration: BoxDecoration(
+                                color: Colors.grey[100],
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              alignment: Alignment.center,
+                              child: Text(
+                                'Clear All',
+                                style: GoogleFonts.inter(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.grey[600],
+                                ),
                               ),
                             ),
                           ),
                         ),
                         const SizedBox(width: 16),
                         Expanded(
-                          child: Container(
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: primaryColor,
-                              borderRadius: BorderRadius.circular(25),
-                            ),
-                            alignment: Alignment.center,
-                            child: Text(
-                              'Apply Filter',
-                              style: GoogleFonts.inter(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
+                          child: GestureDetector(
+                            onTap: () => controller.applyFilter(),
+                            child: Container(
+                              height: 50,
+                              decoration: BoxDecoration(
+                                color: primaryColor,
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              alignment: Alignment.center,
+                              child: Text(
+                                'Apply Filter',
+                                style: GoogleFonts.inter(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ),
@@ -212,22 +220,26 @@ class FilterPageView extends StatelessWidget {
     );
   }
 
-  Widget _buildPill(String text, bool active, Color primaryColor) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      decoration: BoxDecoration(
-        color: active ? primaryColor : Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: active ? primaryColor : Colors.grey[300]!,
+  Widget _buildPill(String text, Color primaryColor, Set<String> selectedSet, Function(String) onToggle) {
+    bool active = selectedSet.contains(text);
+    return GestureDetector(
+      onTap: () => onToggle(text),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        decoration: BoxDecoration(
+          color: active ? primaryColor : Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: active ? primaryColor : Colors.grey[300]!,
+          ),
         ),
-      ),
-      child: Text(
-        text,
-        style: GoogleFonts.inter(
-          fontSize: 13,
-          fontWeight: active ? FontWeight.w500 : FontWeight.w400,
-          color: active ? Colors.white : Colors.grey[400],
+        child: Text(
+          text,
+          style: GoogleFonts.inter(
+            fontSize: 13,
+            fontWeight: active ? FontWeight.w500 : FontWeight.w400,
+            color: active ? Colors.white : Colors.grey[400],
+          ),
         ),
       ),
     );

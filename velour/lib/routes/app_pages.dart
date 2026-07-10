@@ -11,6 +11,7 @@ import '../features/dashboard/views/product_detail_1_view.dart';
 import '../features/dashboard/views/product_detail_2_view.dart';
 import '../features/dashboard/views/product_detail_3_view.dart';
 import '../features/dashboard/views/continue_shopping_view.dart';
+import '../features/dashboard/controllers/product_detail_controller.dart';
 import '../features/dashboard/views/filter_page_view.dart';
 import '../features/dashboard/views/filter_success_view.dart';
 import '../features/dashboard/views/review_page_view.dart';
@@ -53,6 +54,8 @@ class AppPages {
     GetPage(
       name: Routes.ONBOARDING,
       page: () => const OnboardingView(),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 800),
       binding: BindingsBuilder(() {
         Get.put(OnboardingController());
       }),
@@ -163,18 +166,30 @@ class AppPages {
     GetPage(
       name: Routes.PRODUCT_DETAIL,
       page: () => const ProductDetailView(),
+      binding: BindingsBuilder(() {
+        Get.put(ProductDetailController());
+      }),
     ),
     GetPage(
       name: Routes.PRODUCT_DETAIL1,
       page: () => const ProductDetail1View(),
+      binding: BindingsBuilder(() {
+        Get.put(ProductDetailController());
+      }),
     ),
     GetPage(
       name: Routes.PRODUCT_DETAIL2,
       page: () => const ProductDetail2View(),
+      binding: BindingsBuilder(() {
+        Get.put(ProductDetailController());
+      }),
     ),
     GetPage(
       name: Routes.PRODUCT_DETAIL3,
       page: () => const ProductDetail3View(),
+      binding: BindingsBuilder(() {
+        Get.put(ProductDetailController());
+      }),
     ),
     GetPage(
       name: Routes.CONTINUE_SHOPPING,

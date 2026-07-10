@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:get/get.dart';
+import '../controllers/categories_3_controller.dart';
 
 class CategoriesPage3 extends StatelessWidget {
   const CategoriesPage3({super.key});
@@ -7,6 +9,7 @@ class CategoriesPage3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const primaryColor = Color(0xFFFE660C);
+    final controller = Get.put(Categories3Controller());
 
     return SafeArea(
       child: SingleChildScrollView(
@@ -30,9 +33,18 @@ class CategoriesPage3 extends StatelessWidget {
                   children: [
                     Icon(Icons.search, color: Colors.grey[600], size: 22),
                     const SizedBox(width: 12),
-                    Text(
-                      'Search',
-                      style: GoogleFonts.inter(color: Colors.grey[400], fontSize: 14),
+                    Expanded(
+                      child: TextField(
+                        onChanged: (val) => controller.searchQuery.value = val,
+                        decoration: InputDecoration(
+                          hintText: 'Search',
+                          hintStyle: GoogleFonts.inter(color: Colors.grey[400], fontSize: 14),
+                          border: InputBorder.none,
+                          isDense: true,
+                          contentPadding: EdgeInsets.zero,
+                        ),
+                        style: GoogleFonts.inter(color: Colors.black87, fontSize: 14),
+                      ),
                     ),
                   ],
                 ),
@@ -45,17 +57,29 @@ class CategoriesPage3 extends StatelessWidget {
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: Row(
+              child: Obx(() => Row(
                 children: [
-                  _buildChip('All', isSelected: true, primaryColor: primaryColor),
+                  GestureDetector(
+                    onTap: () => controller.selectedCategory.value = 'All',
+                    child: _buildChip('All', isSelected: controller.selectedCategory.value == 'All', primaryColor: primaryColor),
+                  ),
                   const SizedBox(width: 12),
-                  _buildChip('Women'),
+                  GestureDetector(
+                    onTap: () => controller.selectedCategory.value = 'Women',
+                    child: _buildChip('Women', isSelected: controller.selectedCategory.value == 'Women', primaryColor: primaryColor),
+                  ),
                   const SizedBox(width: 12),
-                  _buildChip('Men'),
+                  GestureDetector(
+                    onTap: () => controller.selectedCategory.value = 'Men',
+                    child: _buildChip('Men', isSelected: controller.selectedCategory.value == 'Men', primaryColor: primaryColor),
+                  ),
                   const SizedBox(width: 12),
-                  _buildChip('Kids'),
+                  GestureDetector(
+                    onTap: () => controller.selectedCategory.value = 'Kids',
+                    child: _buildChip('Kids', isSelected: controller.selectedCategory.value == 'Kids', primaryColor: primaryColor),
+                  ),
                 ],
-              ),
+              )),
             ),
             
             const SizedBox(height: 24),

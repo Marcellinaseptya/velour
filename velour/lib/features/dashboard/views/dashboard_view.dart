@@ -13,6 +13,9 @@ import 'categories_page_3.dart';
 import 'categories_page_4.dart';
 import 'categories_page_7.dart';
 import 'scanner_page.dart';
+import 'history_page_view.dart';
+import 'history_ongoing_view.dart';
+import 'history_completed_view.dart';
 
 class DashboardView extends GetView<DashboardController> {
   const DashboardView({super.key});
@@ -48,6 +51,14 @@ class DashboardView extends GetView<DashboardController> {
           return const FavoritePage();
         } else if (controller.selectedTab.value == 2) {
           return const ScannerPage();
+        } else if (controller.selectedTab.value == 3) {
+          if (controller.selectedHistoryTab.value == 0) {
+            return const HistoryPageView();
+          } else if (controller.selectedHistoryTab.value == 1) {
+            return const HistoryOngoingView();
+          } else {
+            return const HistoryCompletedView();
+          }
         }
         return Center(child: Text('Tab ${controller.selectedTab.value}'));
       }),

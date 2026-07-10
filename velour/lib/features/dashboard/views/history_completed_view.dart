@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
+import '../controllers/dashboard_controller.dart';
 
-class HistoryCompletedView extends StatelessWidget {
+class HistoryCompletedView extends GetView<DashboardController> {
   const HistoryCompletedView({super.key});
 
   @override
@@ -65,21 +66,21 @@ class HistoryCompletedView extends StatelessWidget {
                 children: [
                   Expanded(
                     child: GestureDetector(
-                      onTap: () => Get.offNamed('/history-page'),
+                      onTap: () => controller.changeHistoryTab(0),
                       child: _buildFilterChip('All Package', false, primaryColor),
                     ),
                   ),
                   const SizedBox(width: 8),
                   Expanded(
                     child: GestureDetector(
-                      onTap: () => Get.offNamed('/history-ongoing'),
+                      onTap: () => controller.changeHistoryTab(1),
                       child: _buildFilterChip('On Process', false, primaryColor),
                     ),
                   ),
                   const SizedBox(width: 8),
                   Expanded(
                     child: GestureDetector(
-                      onTap: () {}, // Already here
+                      onTap: () => controller.changeHistoryTab(2),
                       child: _buildFilterChip('Completed', true, primaryColor),
                     ),
                   ),
@@ -112,34 +113,6 @@ class HistoryCompletedView extends StatelessWidget {
               ),
             ),
           ],
-        ),
-      ),
-      // --- FAKE BOTTOM NAVIGATION BAR TO MATCH SCREENSHOT ---
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              offset: const Offset(0, -4),
-              blurRadius: 10,
-            ),
-          ],
-        ),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _buildNavItem(Icons.home_outlined, 'Home', false),
-                _buildNavItem(Icons.favorite_border, 'Favorite', false),
-                _buildNavItem(Icons.camera_alt_outlined, 'Screener', false),
-                _buildNavItem(Icons.receipt_long, 'History', true),
-                _buildNavItem(Icons.person_outline, 'Profile', false),
-              ],
-            ),
-          ),
         ),
       ),
     );

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
+import '../../../routes/app_pages.dart';
+import '../controllers/product_detail_controller.dart';
 
-class ProductDetail1View extends StatelessWidget {
+class ProductDetail1View extends GetView<ProductDetailController> {
   const ProductDetail1View({super.key});
 
   @override
@@ -71,16 +73,25 @@ class ProductDetail1View extends StatelessWidget {
                       const SizedBox(height: 20),
                       
                       // Thumbnails (Centered)
-                      Row(
+                      Obx(() => Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          _buildThumbnail(active: true, primaryColor: primaryColor),
+                          GestureDetector(
+                            onTap: () => controller.changeImage(0),
+                            child: _buildThumbnail(active: controller.activeImageIndex.value == 0, primaryColor: primaryColor),
+                          ),
                           const SizedBox(width: 12),
-                          _buildThumbnail(active: false, primaryColor: primaryColor),
+                          GestureDetector(
+                            onTap: () => controller.changeImage(1),
+                            child: _buildThumbnail(active: controller.activeImageIndex.value == 1, primaryColor: primaryColor),
+                          ),
                           const SizedBox(width: 12),
-                          _buildThumbnail(active: false, primaryColor: primaryColor),
+                          GestureDetector(
+                            onTap: () => controller.changeImage(2),
+                            child: _buildThumbnail(active: controller.activeImageIndex.value == 2, primaryColor: primaryColor),
+                          ),
                         ],
-                      ),
+                      )),
                       
                       const SizedBox(height: 32),
                       
@@ -142,7 +153,7 @@ class ProductDetail1View extends StatelessWidget {
                             const SizedBox(width: 16),
                             
                             // Sizes Picker
-                            Container(
+                            Obx(() => Container(
                               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                               decoration: BoxDecoration(
                                 color: Colors.grey[200],
@@ -156,26 +167,28 @@ class ProductDetail1View extends StatelessWidget {
                                     child: Icon(Icons.swap_horiz, color: primaryColor, size: 16),
                                   ),
                                   const SizedBox(width: 12),
-                                  Text('M', style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w500)),
-                                  const SizedBox(width: 12),
-                                  // Selected Size (L)
-                                  Container(
-                                    width: 28,
-                                    height: 28,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      border: Border.all(color: primaryColor),
-                                    ),
-                                    alignment: Alignment.center,
-                                    child: Text('L', style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w600)),
+                                  GestureDetector(
+                                    onTap: () => controller.changeSize('M'),
+                                    child: _buildSizeItem('M', controller.selectedSize.value == 'M', primaryColor),
                                   ),
                                   const SizedBox(width: 12),
-                                  Text('XL', style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w500)),
+                                  GestureDetector(
+                                    onTap: () => controller.changeSize('L'),
+                                    child: _buildSizeItem('L', controller.selectedSize.value == 'L', primaryColor),
+                                  ),
                                   const SizedBox(width: 12),
-                                  Text('XXL', style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w500)),
+                                  GestureDetector(
+                                    onTap: () => controller.changeSize('XL'),
+                                    child: _buildSizeItem('XL', controller.selectedSize.value == 'XL', primaryColor),
+                                  ),
+                                  const SizedBox(width: 12),
+                                  GestureDetector(
+                                    onTap: () => controller.changeSize('XXL'),
+                                    child: _buildSizeItem('XXL', controller.selectedSize.value == 'XXL', primaryColor),
+                                  ),
                                 ],
                               ),
-                            ),
+                            )),
                           ],
                         ),
                       ),
@@ -187,14 +200,23 @@ class ProductDetail1View extends StatelessWidget {
                         decoration: BoxDecoration(
                           border: Border(bottom: BorderSide(color: Colors.grey[200]!)),
                         ),
-                        child: Row(
+                        child: Obx(() => Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            _buildTabItem('Description', active: true),
-                            _buildTabItem('Review', active: false),
-                            _buildTabItem('Material', active: false),
+                            GestureDetector(
+                              onTap: () => controller.changeTab(0),
+                              child: _buildTabItem('Description', active: controller.activeTabIndex.value == 0),
+                            ),
+                            GestureDetector(
+                              onTap: () => controller.changeTab(1),
+                              child: _buildTabItem('Review', active: controller.activeTabIndex.value == 1),
+                            ),
+                            GestureDetector(
+                              onTap: () => controller.changeTab(2),
+                              child: _buildTabItem('Material', active: controller.activeTabIndex.value == 2),
+                            ),
                           ],
-                        ),
+                        )),
                       ),
                       
                       const SizedBox(height: 16),
@@ -237,20 +259,23 @@ class ProductDetail1View extends StatelessWidget {
                       const SizedBox(height: 24),
                       
                       // Add to Cart Button
-                      Container(
-                        width: double.infinity,
-                        height: 56,
-                        decoration: BoxDecoration(
-                          color: primaryColor,
-                          borderRadius: BorderRadius.circular(28),
-                        ),
-                        alignment: Alignment.center,
-                        child: Text(
-                          'Add to Cart',
-                          style: GoogleFonts.inter(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
+                      GestureDetector(
+                        onTap: () => Get.toNamed(Routes.CART_1),
+                        child: Container(
+                          width: double.infinity,
+                          height: 56,
+                          decoration: BoxDecoration(
+                            color: primaryColor,
+                            borderRadius: BorderRadius.circular(28),
+                          ),
+                          alignment: Alignment.center,
+                          child: Text(
+                            'Add to Cart',
+                            style: GoogleFonts.inter(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
@@ -291,5 +316,22 @@ class ProductDetail1View extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _buildSizeItem(String text, bool active, Color primaryColor) {
+    if (active) {
+      return Container(
+        width: 28,
+        height: 28,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(color: primaryColor),
+        ),
+        alignment: Alignment.center,
+        child: Text(text, style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w600)),
+      );
+    } else {
+      return Text(text, style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w500));
+    }
   }
 }

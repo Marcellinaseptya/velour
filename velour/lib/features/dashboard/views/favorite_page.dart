@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:get/get.dart';
+import '../../../routes/app_pages.dart';
 
 class FavoritePage extends StatelessWidget {
   const FavoritePage({super.key});
@@ -186,13 +188,16 @@ class FavoritePage extends StatelessWidget {
                   Positioned(
                     bottom: 12,
                     right: 12,
-                    child: Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: primaryColor,
-                        shape: BoxShape.circle,
+                    child: GestureDetector(
+                      onTap: () => Get.toNamed(Routes.CART_4),
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: primaryColor,
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(Icons.shopping_cart_outlined, color: Colors.white, size: 18),
                       ),
-                      child: const Icon(Icons.shopping_cart_outlined, color: Colors.white, size: 18),
                     ),
                   ),
                 ],

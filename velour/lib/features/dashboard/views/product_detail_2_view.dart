@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
+import '../../../routes/app_pages.dart';
+import '../controllers/product_detail_controller.dart';
 
-class ProductDetail2View extends StatelessWidget {
+class ProductDetail2View extends GetView<ProductDetailController> {
   const ProductDetail2View({super.key});
 
   @override
@@ -199,15 +201,27 @@ class ProductDetail2View extends StatelessWidget {
                       const SizedBox(height: 16),
                       
                       // --- DOTS INDICATOR ---
-                      Row(
+                      Obx(() => Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          _buildDot(active: true, color: primaryColor),
-                          _buildDot(active: false, color: Colors.grey[300]!),
-                          _buildDot(active: false, color: Colors.grey[300]!),
-                          _buildDot(active: false, color: Colors.grey[300]!),
+                          GestureDetector(
+                            onTap: () => controller.changeImage(0),
+                            child: _buildDot(active: controller.activeImageIndex.value == 0, color: controller.activeImageIndex.value == 0 ? primaryColor : Colors.grey[300]!),
+                          ),
+                          GestureDetector(
+                            onTap: () => controller.changeImage(1),
+                            child: _buildDot(active: controller.activeImageIndex.value == 1, color: controller.activeImageIndex.value == 1 ? primaryColor : Colors.grey[300]!),
+                          ),
+                          GestureDetector(
+                            onTap: () => controller.changeImage(2),
+                            child: _buildDot(active: controller.activeImageIndex.value == 2, color: controller.activeImageIndex.value == 2 ? primaryColor : Colors.grey[300]!),
+                          ),
+                          GestureDetector(
+                            onTap: () => controller.changeImage(3),
+                            child: _buildDot(active: controller.activeImageIndex.value == 3, color: controller.activeImageIndex.value == 3 ? primaryColor : Colors.grey[300]!),
+                          ),
                         ],
-                      ),
+                      )),
                       
                       const SizedBox(height: 24),
                       
@@ -246,7 +260,7 @@ class ProductDetail2View extends StatelessWidget {
                       const SizedBox(height: 20),
                       
                       // --- SIZE PICKER ---
-                      Container(
+                      Obx(() => Container(
                         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                         decoration: BoxDecoration(
                           color: Colors.grey[100],
@@ -255,16 +269,28 @@ class ProductDetail2View extends StatelessWidget {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            _buildSizeCircle('S', false, primaryColor),
+                            GestureDetector(
+                              onTap: () => controller.changeSize('S'),
+                              child: _buildSizeCircle('S', controller.selectedSize.value == 'S', primaryColor),
+                            ),
                             const SizedBox(width: 8),
-                            _buildSizeCircle('M', true, primaryColor),
+                            GestureDetector(
+                              onTap: () => controller.changeSize('M'),
+                              child: _buildSizeCircle('M', controller.selectedSize.value == 'M', primaryColor),
+                            ),
                             const SizedBox(width: 8),
-                            _buildSizeCircle('L', false, primaryColor),
+                            GestureDetector(
+                              onTap: () => controller.changeSize('L'),
+                              child: _buildSizeCircle('L', controller.selectedSize.value == 'L', primaryColor),
+                            ),
                             const SizedBox(width: 8),
-                            _buildSizeCircle('XL', false, primaryColor),
+                            GestureDetector(
+                              onTap: () => controller.changeSize('XL'),
+                              child: _buildSizeCircle('XL', controller.selectedSize.value == 'XL', primaryColor),
+                            ),
                           ],
                         ),
-                      ),
+                      )),
                       
                       const SizedBox(height: 24),
                       
@@ -352,19 +378,22 @@ class ProductDetail2View extends StatelessWidget {
                   const SizedBox(width: 16),
                   // Add to Cart Button
                   Expanded(
-                    child: Container(
-                      height: 56,
-                      decoration: BoxDecoration(
-                        color: primaryColor,
-                        borderRadius: BorderRadius.circular(28),
-                      ),
-                      alignment: Alignment.center,
-                      child: Text(
-                        'Add to Cart',
-                        style: GoogleFonts.inter(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
+                    child: GestureDetector(
+                      onTap: () => Get.toNamed(Routes.CART_1),
+                      child: Container(
+                        height: 56,
+                        decoration: BoxDecoration(
+                          color: primaryColor,
+                          borderRadius: BorderRadius.circular(28),
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          'Add to Cart',
+                          style: GoogleFonts.inter(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),

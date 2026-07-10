@@ -17,23 +17,26 @@ class SuccessView extends GetView<SuccessController> {
         children: [
           // Bottom Tilted Banner
           Positioned(
-            bottom: 25, // Push it up so it's fully visible
+            bottom: 105, // Lowered slightly from 120
             left: -500, // Center the 1500px banner on the screen so rotation doesn't push it off-screen
             child: Transform.rotate(
               angle: -0.1, // Made it more tilted
-              child: Container(
-                height: 50,
-                width: 1500,
-                color: const Color(0xFFFFE0D2), // Light orange background
-                alignment: Alignment.center,
-                child: Text(
-                  "Velour  " * 20,
-                  style: GoogleFonts.inter(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600,
+              child: SlideTransition(
+                position: controller.bannerSlideAnimation,
+                child: Container(
+                  height: 50,
+                  width: 3000, // Make it extra wide so it can scroll
+                  color: const Color(0xFFFFE0D2), // Light orange background
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Velour  " * 40,
+                    style: GoogleFonts.inter(
+                      color: Colors.white,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    maxLines: 1,
                   ),
-                  maxLines: 1,
                 ),
               ),
             ),
@@ -89,46 +92,58 @@ class SuccessView extends GetView<SuccessController> {
                           ),
                         ),
                         
-                        // Scattered Dots
-                        Positioned(
-                          top: 15,
-                          left: 45,
-                          child: Container(width: 22, height: 22, decoration: const BoxDecoration(color: Color(0xFFFFAA77), shape: BoxShape.circle)),
-                        ),
-                        Positioned(
-                          top: 25,
-                          left: 80,
-                          child: Container(width: 6, height: 6, decoration: const BoxDecoration(color: Color(0xFFD35400), shape: BoxShape.circle)),
-                        ),
-                        Positioned(
-                          top: 25,
-                          right: 65,
-                          child: Container(width: 10, height: 10, decoration: const BoxDecoration(color: Color(0xFFFFB38A), shape: BoxShape.circle)),
-                        ),
-                        Positioned(
-                          top: 40,
-                          right: 40,
-                          child: Container(width: 18, height: 18, decoration: const BoxDecoration(color: Color(0xFFCC5200), shape: BoxShape.circle)),
-                        ),
-                        Positioned(
-                          top: 75,
-                          right: 28,
-                          child: Container(width: 6, height: 6, decoration: const BoxDecoration(color: Color(0xFFFF9955), shape: BoxShape.circle)),
-                        ),
-                        Positioned(
-                          bottom: 75,
-                          right: 32,
-                          child: Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFFFF9955), shape: BoxShape.circle)),
-                        ),
-                        Positioned(
-                          bottom: 85,
-                          left: 25,
-                          child: Container(width: 16, height: 16, decoration: const BoxDecoration(color: Color(0xFF662900), shape: BoxShape.circle)),
-                        ),
-                        Positioned(
-                          bottom: 65,
-                          left: 40,
-                          child: Container(width: 6, height: 6, decoration: const BoxDecoration(color: Color(0xFFFFB38A), shape: BoxShape.circle)),
+                        // Scattered Dots with Rotation Animation
+                        AnimatedBuilder(
+                          animation: controller.animationController,
+                          builder: (context, child) {
+                            return Transform.rotate(
+                              angle: controller.rotationAnimation.value,
+                              child: Stack(
+                                children: [
+                                  Positioned(
+                                    top: 15,
+                                    left: 45,
+                                    child: Container(width: 22, height: 22, decoration: const BoxDecoration(color: Color(0xFFFFAA77), shape: BoxShape.circle)),
+                                  ),
+                                  Positioned(
+                                    top: 25,
+                                    left: 80,
+                                    child: Container(width: 6, height: 6, decoration: const BoxDecoration(color: Color(0xFFD35400), shape: BoxShape.circle)),
+                                  ),
+                                  Positioned(
+                                    top: 25,
+                                    right: 65,
+                                    child: Container(width: 10, height: 10, decoration: const BoxDecoration(color: Color(0xFFFFB38A), shape: BoxShape.circle)),
+                                  ),
+                                  Positioned(
+                                    top: 40,
+                                    right: 40,
+                                    child: Container(width: 18, height: 18, decoration: const BoxDecoration(color: Color(0xFFCC5200), shape: BoxShape.circle)),
+                                  ),
+                                  Positioned(
+                                    top: 75,
+                                    right: 28,
+                                    child: Container(width: 6, height: 6, decoration: const BoxDecoration(color: Color(0xFFFF9955), shape: BoxShape.circle)),
+                                  ),
+                                  Positioned(
+                                    bottom: 75,
+                                    right: 32,
+                                    child: Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFFFF9955), shape: BoxShape.circle)),
+                                  ),
+                                  Positioned(
+                                    bottom: 85,
+                                    left: 25,
+                                    child: Container(width: 16, height: 16, decoration: const BoxDecoration(color: Color(0xFF662900), shape: BoxShape.circle)),
+                                  ),
+                                  Positioned(
+                                    bottom: 65,
+                                    left: 40,
+                                    child: Container(width: 6, height: 6, decoration: const BoxDecoration(color: Color(0xFFFFB38A), shape: BoxShape.circle)),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
                         ),
                       ],
                     ),
@@ -168,7 +183,7 @@ class SuccessView extends GetView<SuccessController> {
                 
                 // Button
                 Padding(
-                  padding: const EdgeInsets.only(left: 24.0, right: 24.0, top: 32.0, bottom: 110.0), // Increased bottom padding to push button up further
+                  padding: const EdgeInsets.only(left: 24.0, right: 24.0, top: 32.0, bottom: 110.0), // Reverted to 110.0
                   child: SizedBox(
                     width: double.infinity,
                     height: 48,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
+import 'filter_page_view.dart';
+import '../../../routes/app_pages.dart';
 
 class CategoriesPage1 extends StatelessWidget {
   const CategoriesPage1({super.key});
@@ -91,14 +93,23 @@ class CategoriesPage1 extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 12),
-                  Container(
-                    width: 50,
-                    height: 50,
-                    decoration: const BoxDecoration(
-                      color: primaryColor,
-                      shape: BoxShape.circle,
+                  GestureDetector(
+                    onTap: () {
+                      Get.bottomSheet(
+                        const FilterPageView(),
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                      );
+                    },
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      decoration: const BoxDecoration(
+                        color: primaryColor,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(Icons.tune, color: Colors.white, size: 22),
                     ),
-                    child: const Icon(Icons.tune, color: Colors.white, size: 22),
                   ),
                 ],
               ),
@@ -111,12 +122,15 @@ class CategoriesPage1 extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Column(
                 children: [
-                  _buildCategoryCard(
-                    title: 'T-Shirt',
-                    description: 'Comfortable everyday tops available in a range of colors and styles.',
-                    itemCount: '458 items',
-                    isSelected: false,
-                    primaryColor: primaryColor,
+                  GestureDetector(
+                    onTap: () => Get.toNamed(Routes.CATEGORY_5),
+                    child: _buildCategoryCard(
+                      title: 'T-Shirt',
+                      description: 'Comfortable everyday tops available in a range of colors and styles.',
+                      itemCount: '458 items',
+                      isSelected: false,
+                      primaryColor: primaryColor,
+                    ),
                   ),
                   const SizedBox(height: 16),
                   _buildCategoryCard(

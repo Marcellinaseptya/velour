@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../controllers/dashboard_controller.dart';
 import 'categories_page_1.dart';
 import 'filter_page_view.dart';
+import '../../../routes/app_pages.dart';
 
 class MainPage1 extends StatelessWidget {
   const MainPage1({super.key});
@@ -78,9 +79,17 @@ class MainPage1 extends StatelessWidget {
                         children: [
                           Icon(Icons.search, color: Colors.grey[600], size: 22),
                           const SizedBox(width: 12),
-                          Text(
-                            'Explore Fashion',
-                            style: GoogleFonts.inter(color: Colors.grey[400], fontSize: 14),
+                          Expanded(
+                            child: TextField(
+                              decoration: InputDecoration(
+                                hintText: 'Explore Fashion',
+                                hintStyle: GoogleFonts.inter(color: Colors.grey[400], fontSize: 14),
+                                border: InputBorder.none,
+                                isDense: true,
+                                contentPadding: EdgeInsets.zero,
+                              ),
+                              style: GoogleFonts.inter(color: Colors.black87, fontSize: 14),
+                            ),
                           ),
                         ],
                       ),
@@ -122,103 +131,26 @@ class MainPage1 extends StatelessWidget {
             
             const SizedBox(height: 16),
             
-            // Popular Item Static Card
+            // Popular Item Swipeable Cards
             SizedBox(
               height: 260,
-              child: Stack(
-                alignment: Alignment.center,
+              child: PageView(
+                controller: PageController(viewportFraction: 0.95), // Allows peaking at next item
                 children: [
-                  // Back Card
-                  Container(
-                    height: 200,
-                    margin: const EdgeInsets.symmetric(horizontal: 24),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(24),
-                    ),
+                  _buildPopularItemCard(
+                    primaryColor: primaryColor,
+                    discount: '15%',
+                    rating: '4.8',
                   ),
-                  // Front Card
-                  Container(
-                    height: 260,
-                    margin: const EdgeInsets.symmetric(horizontal: 48),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[350],
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          blurRadius: 10,
-                          offset: const Offset(0, 4),
-                        ),
-                      ],
-                    ),
-                    child: Stack(
-                      children: [
-                        // Up to 15%
-                        Positioned(
-                          top: 20,
-                          left: 20,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Up to',
-                                style: GoogleFonts.inter(fontSize: 12, color: Colors.black87),
-                              ),
-                              Text(
-                                '15%',
-                                style: GoogleFonts.inter(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black87),
-                              ),
-                            ],
-                          ),
-                        ),
-                        // Rating Badge
-                        Positioned(
-                          top: 20,
-                          right: 20,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                            child: Row(
-                              children: [
-                                const Icon(Icons.star, color: Colors.orange, size: 14),
-                                const SizedBox(width: 4),
-                                Text(
-                                  '4.8',
-                                  style: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w600),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        // See All Button
-                        Positioned(
-                          bottom: 20,
-                          left: 0,
-                          right: 0,
-                          child: Center(
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: primaryColor,
-                                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(24),
-                                ),
-                                elevation: 0,
-                              ),
-                              child: Text(
-                                'See All',
-                                style: GoogleFonts.inter(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                  _buildPopularItemCard(
+                    primaryColor: primaryColor,
+                    discount: '25%',
+                    rating: '4.9',
+                  ),
+                  _buildPopularItemCard(
+                    primaryColor: primaryColor,
+                    discount: '30%',
+                    rating: '5.0',
                   ),
                 ],
               ),
@@ -243,13 +175,13 @@ class MainPage1 extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Row(
                 children: [
-                  _buildChip('All', isSelected: true, primaryColor: primaryColor),
+                  GestureDetector(onTap: () => Get.toNamed(Routes.CATEGORY_1), child: _buildChip('All', isSelected: true, primaryColor: primaryColor)),
                   const SizedBox(width: 12),
-                  _buildChip('Women'),
+                  GestureDetector(onTap: () => Get.toNamed(Routes.CATEGORY_2), child: _buildChip('Women')),
                   const SizedBox(width: 12),
-                  _buildChip('Men'),
+                  GestureDetector(onTap: () => Get.toNamed(Routes.CATEGORY_3), child: _buildChip('Men')),
                   const SizedBox(width: 12),
-                  _buildChip('Kids'),
+                  GestureDetector(onTap: () => Get.toNamed(Routes.CATEGORY_4), child: _buildChip('Kids')),
                 ],
               ),
             ),
@@ -267,29 +199,41 @@ class MainPage1 extends StatelessWidget {
                 mainAxisSpacing: 24,
                 crossAxisSpacing: 16,
                 children: [
-                  _buildProductCard(
-                    title: 'Sky Blue Mock Neck Top',
-                    originalPrice: '\$64',
-                    discountPrice: '\$54',
-                    primaryColor: primaryColor,
+                  GestureDetector(
+                    onTap: () => Get.toNamed(Routes.PRODUCT_DETAIL),
+                    child: _buildProductCard(
+                      title: 'Sky Blue Mock Neck Top',
+                      originalPrice: '\$64',
+                      discountPrice: '\$54',
+                      primaryColor: primaryColor,
+                    ),
                   ),
-                  _buildProductCard(
-                    title: 'London Shirt',
-                    originalPrice: '\$44',
-                    discountPrice: '\$42',
-                    primaryColor: primaryColor,
+                  GestureDetector(
+                    onTap: () => Get.toNamed(Routes.PRODUCT_DETAIL),
+                    child: _buildProductCard(
+                      title: 'London Shirt',
+                      originalPrice: '\$44',
+                      discountPrice: '\$42',
+                      primaryColor: primaryColor,
+                    ),
                   ),
-                  _buildProductCard(
-                    title: 'Petal Pink Basic Tee',
-                    originalPrice: '\$54',
-                    discountPrice: '\$35',
-                    primaryColor: primaryColor,
+                  GestureDetector(
+                    onTap: () => Get.toNamed(Routes.PRODUCT_DETAIL),
+                    child: _buildProductCard(
+                      title: 'Petal Pink Basic Tee',
+                      originalPrice: '\$54',
+                      discountPrice: '\$35',
+                      primaryColor: primaryColor,
+                    ),
                   ),
-                  _buildProductCard(
-                    title: 'Jeans Jumpsuit',
-                    originalPrice: '\$52.24',
-                    discountPrice: '\$24.99',
-                    primaryColor: primaryColor,
+                  GestureDetector(
+                    onTap: () => Get.toNamed(Routes.PRODUCT_DETAIL),
+                    child: _buildProductCard(
+                      title: 'Jeans Jumpsuit',
+                      originalPrice: '\$52.24',
+                      discountPrice: '\$24.99',
+                      primaryColor: primaryColor,
+                    ),
                   ),
                 ],
               ),
@@ -317,6 +261,110 @@ class MainPage1 extends StatelessWidget {
           fontWeight: isSelected ? FontWeight.w500 : FontWeight.normal,
         ),
       ),
+    );
+  }
+
+  Widget _buildPopularItemCard({
+    required Color primaryColor,
+    required String discount,
+    required String rating,
+  }) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        // Back Card
+        Container(
+          height: 200,
+          margin: const EdgeInsets.symmetric(horizontal: 12), // Reduced margin since PageView handles spacing
+          decoration: BoxDecoration(
+            color: Colors.grey[200],
+            borderRadius: BorderRadius.circular(24),
+          ),
+        ),
+        // Front Card
+        Container(
+          height: 260,
+          margin: const EdgeInsets.symmetric(horizontal: 36),
+          decoration: BoxDecoration(
+            color: Colors.grey[350],
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+          child: Stack(
+            children: [
+              // Discount Text
+              Positioned(
+                top: 20,
+                left: 20,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Up to',
+                      style: GoogleFonts.inter(fontSize: 12, color: Colors.black87),
+                    ),
+                    Text(
+                      discount,
+                      style: GoogleFonts.inter(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black87),
+                    ),
+                  ],
+                ),
+              ),
+              // Rating Badge
+              Positioned(
+                top: 20,
+                right: 20,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.star, color: Colors.orange, size: 14),
+                      const SizedBox(width: 4),
+                      Text(
+                        rating,
+                        style: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w600),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              // See All Button
+              Positioned(
+                bottom: 20,
+                left: 0,
+                right: 0,
+                child: Center(
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: primaryColor,
+                      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      elevation: 0,
+                    ),
+                    child: Text(
+                      'See All',
+                      style: GoogleFonts.inter(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
