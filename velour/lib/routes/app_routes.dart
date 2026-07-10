@@ -1,0 +1,40 @@
+part of 'app_pages.dart';
+
+abstract class Routes {
+  static const SPLASH = '/splash';
+  static const ONBOARDING = '/onboarding';
+  static const LOGIN = '/login';
+  static const REGISTER = '/register';
+  static const SUCCESS = '/success';
+  static const LANDING = '/landing';
+  static const DASHBOARD = '/dashboard';
+  static const MAIN_PAGE_1 = '/main-page-1';
+  static const MAIN_PAGE_2 = '/main-page-2';
+  static const MAIN_PAGE_3 = '/main-page-3';
+  static const MAIN_PAGE_4 = '/main-page-4';
+  static const CATEGORY_1 = '/category-1';
+  static const CATEGORY_2 = '/category-2';
+  static const CATEGORY_3 = '/category-3';
+  static const CATEGORY_4 = '/category-4';
+  static const CATEGORY_5 = '/category-5';
+  static const CATEGORY_6 = '/category-6';
+  static const CATEGORY_7 = '/category-7';
+  static const PRODUCT_DETAIL = '/product-detail';
+  static const PRODUCT_DETAIL1 = '/product-detail1';
+  static const PRODUCT_DETAIL2 = '/product-detail2';
+  static const PRODUCT_DETAIL3 = '/product-detail3';
+  static const CONTINUE_SHOPPING = '/continue-shopping';
+  static const FILTER_PAGE = '/filter-page';
+  static const FILTER_SUCCESS = '/filter-success';
+  static const REVIEW_PAGE = '/review-page';
+  static const HISTORY_PAGE = '/history-page';
+  static const HISTORY_ONGOING = '/history-ongoing';
+  static const HISTORY_COMPLETED = '/history-completed';
+  static const TRACKING_DETAIL = '/tracking-detail';
+  static const TRACKING_ADDRESS = '/tracking-address';
+  static const CART_1 = '/cart-1';
+  static const CART_2 = '/cart-2';
+  static const CART_3 = '/cart-3';
+  static const CART_4 = '/cart-4';
+  static const VOUCHER = '/voucher';
+}
